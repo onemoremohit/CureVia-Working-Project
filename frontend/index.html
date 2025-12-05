@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CureVia - AI Health Assistant</title>
+
+  <!-- Chart.js for charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Local stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img id="logoimg" src="images/readylogo.png" alt="CureVia logo">
+      <span class="brand-name">CureVia</span>
+    </div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="content.html">Content</a>
+      <a href="contact.html">Contact</a>
+      <a href="founder.html">Founder</a>
+    </nav>
+  </header>
+
+  <main class="site-wrap">
+    <section class="info-section" aria-labelledby="welcomeTitle">
+      <h1 id="welcomeTitle">Welcome to CureVia</h1>
+      <p>Enter patient details and symptoms. We'll compare cost, duration and side-effects for Allopathic, Ayurvedic and Homeopathic treatments using local city records.</p>
+    </section>
+
+    <div class="container" role="region" aria-label="Health form and results">
+      <div class="assistant-header">
+        <h2>AI Health Assistant</h2>
+        <img class="bot-img" src="images/pngtree-chatbot-robot.png" alt="chatbot icon">
+      </div>
+
+      <form id="healthForm" novalidate>
+        <label for="diseaseName">Disease Name (optional)</label>
+        <input id="diseaseName" name="diseaseName" type="text" placeholder="e.g. Hypertension">
+
+        <label for="affectedOrgan">Affected Organs (optional)</label>
+        <input id="affectedOrgan" name="affectedOrgan" type="text" placeholder="e.g. Heart, Kidneys">
+
+        <div class="row">
+          <div class="col">
+            <label for="city">City <span class="required">*</span></label>
+            <input id="city" name="city" type="text" placeholder="City used to fetch local records" required>
+          </div>
+          <div class="col">
+            <label for="age">Age <span class="required">*</span></label>
+            <input id="age" name="age" type="number" min="0" placeholder="Age" required>
+          </div>
+        </div>
+
+        <label>Gender <span class="required">*</span></label>
+        <div class="radio-group" role="radiogroup" aria-label="Gender">
+          <label><input type="radio" name="gender" value="male" required> Male</label>
+          <label><input type="radio" name="gender" value="female" required> Female</label>
+          <label><input type="radio" name="gender" value="other" required> Other</label>
+        </div>
+
+        <h3>Lab reports (optional)</h3>
+        <label for="pdf">PDF</label>
+        <input id="pdf" type="file" accept="application/pdf">
+        <label for="image">Image</label>
+        <input id="image" type="file" accept="image/*">
+
+        <label for="symptoms">Symptoms / Additional notes <span class="required">*</span></label>
+        <textarea id="symptoms" name="symptoms" rows="4" placeholder="Enter symptoms or ask anything" required></textarea>
+
+        <div class="form-actions">
+          <button type="submit" id="submitBtn">Submit</button>
+          <button type="button" id="demoBtn" class="demo">Run demo</button>
+          <div id="statusMeta" class="meta" aria-live="polite"></div>
+        </div>
+
+        <div id="errorMsg" class="error" role="alert" style="display:none"></div>
+        <p class="note">Note: This tool is informational only and not a substitute for professional medical advice.</p>
+      </form>
+
+      <!-- Results area (hidden initially) -->
+      <div id="resultCard" class="result-card" style="display:none" aria-live="polite">
+        <div class="result-top">
+          <div>
+            <h3>Treatment Comparison</h3>
+            <div class="meta" id="summaryMeta">Estimated comparisons based on local records</div>
+          </div>
+          <div id="urgency" class="urgency"></div>
+        </div>
+
+        <table id="comparisonTable" class="comparison-table" aria-describedby="tableDesc">
+          <thead>
+            <tr><th>Treatment</th><th>Estimated Cost (₹)</th><th>Estimated Duration</th><th>Side effects / notes</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p id="tableDesc" class="meta">Cost and duration are aggregated estimates from local records.</p>
+
+        <div class="chart-wrap">
+          <canvas id="barChart" height="120"></canvas>
+        </div>
+
+        <div class="recommendations">
+          <h4>Recommended next steps</h4>
+          <ul id="recommendations"></ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Please note: this is an informational tool only. Always consult a qualified doctor for diagnosis and treatment.</p>
+  </footer>
+
+  <!-- Local script -->
+  <script src="script.js"></script>
+</body>
+</html>

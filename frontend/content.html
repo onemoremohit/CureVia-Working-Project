@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cured Stories — Success Stories & Treatments</title>
+
+  <style>
+    :root{
+      --bg: #f7fbff;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #0b74ff;
+      --accent-2: #06b6d4;
+      --shadow: 0 6px 24px rgba(12, 40, 80, 0.08);
+      --radius: 12px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#f7fbff 0%, #ffffff 100%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px;
+    }
+
+    .site-header{
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      color: #fff;
+      padding:28px 0;
+      border-radius: 12px;
+      margin-bottom:20px;
+      box-shadow: var(--shadow);
+    }
+    .site-header h1{
+      margin:0 0 6px;
+      font-size:28px;
+      letter-spacing:0.2px;
+    }
+    .lead{ margin:0; opacity:0.95; font-size:14px }
+
+    .intro p{ color:var(--muted); margin:10px 0 16px; }
+    .note{ background: #eef6ff; padding:10px 12px; border-radius:8px; color:#0b3d6b; font-size:13px }
+
+    .diseases-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:20px;
+      margin-top:18px;
+    }
+
+    .disease-card{
+      background:var(--card);
+      padding:18px;
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(12,40,80,0.03);
+    }
+    .disease-card h3{ margin:0 0 6px; font-size:18px; color:#07204a }
+    .disease-card .short{ margin:0 0 14px; color:var(--muted); font-size:14px }
+
+    .videos{ display:flex; gap:14px; flex-direction:column; }
+    .video-block h4{ margin:0 0 8px; font-size:14px; color:#0b3d6b }
+    .video-wrapper{
+      width:100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow: 0 3px 10px rgba(2,6,23,0.06);
+    }
+    .video-wrapper iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    @media (min-width:900px){
+      .videos{ flex-direction:row; }
+      .video-block{ flex:1; }
+    }
+    @media (max-width:899px){
+      .diseases-grid{ grid-template-columns: 1fr; }
+      .site-header{ text-align:center }
+    }
+
+    .footer{
+      margin-top:18px;
+      padding:12px 16px;
+      border-radius:10px;
+      background:#fff;
+      color:var(--muted);
+      border:1px solid rgba(12,40,80,0.03);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <h1>Cured Stories</h1>
+      <p class="lead">Real people. Real recoveries. Real hope — choose the path that fits you.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <h2>Success Stories by Disease & Treatment Type</h2>
+      <p>Below are curated patient stories and videos grouped by chronic disease. Each disease has three videos showing recovery via <strong>Allopathic</strong>, <strong>Ayurvedic</strong>, and <strong>Homeopathic</strong> treatments. Replace the placeholder embed URLs with the real YouTube embed links.</p>
+
+      <p class="note"><strong>How to get embed URL:</strong> From a YouTube link like <code>https://youtube.com/watch?v=ABC123</code>, convert it to <code>https://youtube.com/embed/ABC123</code>.</p>
+    </section>
+
+    <section class="diseases-grid">
+
+      <!-- DISEASE 1 -->
+      <article class="disease-card">
+        <h3>1. Diabetes (Type 2)</h3>
+        <p class="short">Stories of recovery, lifestyle changes, and treatment journeys.</p>
+
+        <div class="videos">
+          <div class="video-block">
+            <h4>Allopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/1NIhv6fCqAU?si=PioUtoyvegVqf6At" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Ayurvedic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/6VFbs34JbEY?si=Cobes3pUpwC3bLxI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Homeopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/0Pbtju5-uCA?si=Trr-l080EdzufJE4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISEASE 2 -->
+      <article class="disease-card">
+        <h3>2. Cancer — Recovery Journeys</h3>
+        <p class="short">Treatment milestones, rehab and survivorship stories.</p>
+
+        <div class="videos">
+          <div class="video-block">
+            <h4>Allopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/gqDFg9Pj_3g?si=pxmvaFCicrpGBKFo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Ayurvedic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/rDx96jVVGWY?si=FJHMk2jLPIm2CAE_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Homeopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/QiAwXGTdk2M?si=ZEBLFqM5_IYSpN_t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISEASE 3 -->
+      <article class="disease-card">
+        <h3>3. Chronic Kidney Disease</h3>
+        <p class="short">Dialysis-free stories, kidney improvement journeys.</p>
+
+        <div class="videos">
+          <div class="video-block">
+            <h4>Allopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/n_vv5r_Z_Xk?si=rYaxQXQmJLTTkfGy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Ayurvedic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/1zY2T33KwaM?si=V2ULsjuDVLPqtx9K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Homeopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/iqKLDItYzZc?si=mc2kxboZf9mVKZ28" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISEASE 4 -->
+      <article class="disease-card">
+        <h3>4. Heart Diseases</h3>
+        <p class="short">Stories of heart recovery, lifestyle reversal and treatment journeys.</p>
+
+        <div class="videos">
+          <div class="video-block">
+            <h4>Allopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/T3NiV-AFjpk?si=mT5uItUWrNwU2fdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Ayurvedic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/gSuQrpxMKLM?si=NxQCdVXgrAd98ZFq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Homeopathic</h4>
+            <div class="video-wrapper">>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/a7ZQax2tN5k?si=Ut2pexK6050aM2r-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISEASE 5 -->
+      <article class="disease-card">
+        <h3>5. Respiratory (COPD / Asthma)</h3>
+        <p class="short">Stories of breathing improvement and long-term recovery.</p>
+
+        <div class="videos">
+          <div class="video-block">
+            <h4>Allopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/XGBV2ZqTVt4?si=-nbM16DvJiSdiHf_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Ayurvedic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/0zFmLOjeR18?si=RMGK1zZhWtzwLPJS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="video-block">
+            <h4>Homeopathic</h4>
+            <div class="video-wrapper">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/bxwq7q5LLk0?si=6AtaW2XDrcyfjp6W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="footer">
+      <p>Disclaimer: These stories are personal experiences and not medical advice. Always consult a qualified healthcare professional before starting any treatment.</p>
+    </footer>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CureVia - Treatment Results</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:Arial, sans-serif;
+      background:#f7f7f7;
+      color:#222;
+    }
+    header{
+      background:#272e82;color:#fff;padding:12px 18px;
+      display:flex;align-items:center;justify-content:space-between;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:44px;border-radius:6px}
+    .brand-name{font-weight:800;font-size:18px}
+    main{max-width:900px;margin:0 auto;padding:20px}
+    h2{color:#087ea8;margin-bottom:8px;text-align:center}
+
+    .card{
+      padding:20px;background:#fff;border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);margin-top:20px;
+    }
+
+    table{
+      width:100%;border-collapse:collapse;margin-top:12px;
+    }
+    th,td{padding:10px;border-bottom:1px solid #e5e5e5;text-align:left}
+    th{background:#e9f7ff;font-weight:700}
+
+    #urgency{
+      font-size:18px;font-weight:700;margin-top:10px;
+      color:#b21a1a;text-align:right;
+    }
+
+    .recommendations ul{
+      margin-top:10px;padding-left:20px;
+    }
+
+    .recommendations li{
+      margin-bottom:6px;
+    }
+
+    .hospital-card{
+      padding:12px;background:#eefaff;border-radius:10px;
+      margin-bottom:12px;border-left:5px solid #0EA5E9;
+    }
+    .hospital-card h4{margin-bottom:4px;color:#0EA5E9}
+
+    .btn-back, .btn-print{
+      display:inline-block;margin-top:20px;margin-right:10px;
+      padding:10px 20px;background:#0EA5E9;color:#fff;
+      border-radius:8px;font-weight:700;text-decoration:none;
+      cursor:pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="images/readylogo.png" alt="logo">
+      <span class="brand-name">CureVia</span>
+    </div>
+    <nav>
+      <a href="index.html" style="color:#fff;font-weight:700">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Treatment Comparison Results</h2>
+
+    <div id="urgency"></div>
+
+    <!-- MAIN RESULT CARD -->
+    <div class="card">
+      <h3>Comparison Table</h3>
+      <table id="comparisonTable">
+        <thead>
+          <tr>
+            <th>Treatment</th>
+            <th>Estimated Cost (₹)</th>
+            <th>Estimated Duration</th>
+            <th>Side Effects</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3 style="margin-top:20px">Cost & Duration Chart</h3>
+      <canvas id="resultChart" height="120"></canvas>
+
+      <div class="recommendations">
+        <h3 style="margin-top:20px">Recommended Steps</h3>
+        <ul id="recommendations"></ul>
+      </div>
+    </div>
+
+
+    <!-- NEW: HOSPITAL LIST -->
+    <div class="card">
+      <h3>Nearby Hospitals in Your City</h3>
+      <div id="hospitalList"></div>
+    </div>
+
+    <!-- Buttons -->
+    <a class="btn-back" href="index.html">⬅ Back to Form</a>
+    <button class="btn-print" onclick="window.print()">🖨 Print Result</button>
+
+  </main>
+
+  <script>
+    // Read saved data from localStorage
+    const data = JSON.parse(localStorage.getItem("curevia_result"));
+
+    // Redirect if opened directly
+    if (!data) window.location.href = "index.html";
+
+    // ===== Fill table =====
+    const tbody = document.querySelector("#comparisonTable tbody");
+    data.treatments.forEach(t => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${t.type}</td>
+        <td>₹ ${t.cost.toLocaleString()}</td>
+        <td>${t.duration}</td>
+        <td>${t.sideEffects}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // ===== Urgency =====
+    document.getElementById("urgency").textContent = data.urgency;
+
+    // ===== Recommendations =====
+    const recBox = document.getElementById("recommendations");
+    data.recommendations.forEach(r => {
+      const li = document.createElement("li");
+      li.textContent = r;
+      recBox.appendChild(li);
+    });
+
+    // ===== Chart =====
+    const ctx = document.getElementById("resultChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: data.treatments.map(t => t.type),
+        datasets: [
+          {
+            label: "Cost (₹)",
+            data: data.treatments.map(t => t.cost),
+            backgroundColor: "rgba(14,165,233,0.6)"
+          },
+          {
+            label: "Duration (days)",
+            data: data.treatments.map(t => t.durationValue),
+            backgroundColor: "rgba(34,197,94,0.6)"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // =============================
+    // ⭐ NEW: HOSPITAL LIST DATABASE
+    // =============================
+    const hospitalDB = {
+      "kanpur": [
+        { name: "Regency Hospital", address: "Sarvodaya Nagar, Kanpur", contact:"0512-3500000" },
+        { name: "Fortune Hospital", address: "Tilak Nagar, Kanpur", contact:"0512-3221122" },
+        { name: "Lala Lajpat Rai Hospital", address: "Swaroop Nagar, Kanpur", contact:"0512-2556677" }
+      ],
+      "lucknow": [
+        { name: "Sanjay Gandhi PGI", address:"Raebareli Road, Lucknow", contact:"0522-2668700" },
+        { name: "Medanta Hospital", address:"Gomti Nagar, Lucknow", contact:"0522-4505050" }
+      ],
+      "delhi": [
+        { name:"AIIMS Delhi", address:"Ansari Nagar, New Delhi", contact:"011-26588500" },
+        { name:"Fortis Escorts", address:"Okhla, New Delhi", contact:"011-47135000" }
+      ]
+    };
+
+    // USER CITY
+    const userCity = data.city?.toLowerCase().trim();
+    const cityHospitals = hospitalDB[userCity] || [];
+
+    const hospitalBox = document.getElementById("hospitalList");
+
+    if (cityHospitals.length === 0) {
+      hospitalBox.innerHTML = `<p>No hospital data available for <b>${data.city}</b>.</p>`;
+    } else {
+      cityHospitals.forEach(h => {
+        const div = document.createElement("div");
+        div.classList.add("hospital-card");
+        div.innerHTML = `
+          <h4>${h.name}</h4>
+          <p><b>Address:</b> ${h.address}</p>
+          <p><b>Contact:</b> ${h.contact}</p>
+        `;
+        hospitalBox.appendChild(div);
+      });
+    }
+  </script>
+
+</body>
+</html>

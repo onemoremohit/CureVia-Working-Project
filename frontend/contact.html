@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Curevia — Apply for Help / Clinical Trial</title>
+
+  <style>
+    :root{
+      --bg:#f6fbff; --card:#ffffff; --muted:#6b7280; --accent:#0b74ff;
+      --accent-2:#06b6d4; --radius:12px; --shadow: 0 8px 30px rgba(8,30,60,0.06);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:linear-gradient(180deg,var(--bg),#ffffff 60%);
+      color:#052036; -webkit-font-smoothing:antialiased; line-height:1.45;
+    }
+    .wrap{max-width:980px;margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    header h1{font-size:20px;margin:0}
+    .lead{color:var(--muted);font-size:14px;margin-top:6px}
+
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+          padding:18px;border:1px solid rgba(8,30,60,0.04)}
+    .switch{display:flex;gap:10px;margin-bottom:12px}
+    .tab-btn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(8,30,60,0.06);
+            background:transparent;cursor:pointer;font-weight:600}
+    .tab-btn.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border-color:transparent}
+
+    form{margin-top:10px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .full{grid-column:1/-1}
+    label{display:block;font-size:13px;color:#042c45;margin-bottom:6px}
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea{
+      width:100%; padding:10px;border-radius:8px;border:1px solid rgba(8,30,60,0.08);
+      font-size:14px;background:#fff;
+    }
+    textarea{min-height:110px;resize:vertical}
+    .small{font-size:13px;color:var(--muted);margin-top:6px}
+    .row{display:flex;gap:10px;align-items:center}
+    .file-input{padding:8px;border-radius:8px;border:1px dashed rgba(8,30,60,0.06);text-align:center;background:#fbfeff}
+    .btn{
+      display:inline-block;padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#fff;font-weight:700;cursor:pointer;margin-top:8px;
+    }
+    .btn.secondary{background:#e6f7ff;color:var(--accent-2);border:1px solid rgba(11,116,255,0.08)}
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+    .footer{margin-top:14px;font-size:13px;color:var(--muted)}
+
+    .preview-list{margin:8px 0;padding:8px;background:#fbfeff;border-radius:8px;border:1px solid rgba(8,30,60,0.03)}
+    .preview-item{font-size:13px;color:#064;display:flex;justify-content:space-between;padding:6px 4px}
+    .error{color:#b00020;font-size:13px;margin-top:6px}
+    @media (max-width:820px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    /* success toast */
+    .toast{
+      position:fixed;right:20px;bottom:20px;background:#072b19;color:#e6fff3;padding:12px 14px;border-radius:10px;box-shadow:var(--shadow);
+      display:none;font-weight:600;
+    }
+    .toast.show{display:block}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Curevia — Contact & Applications</h1>
+        <div class="lead">Apply for Financial Help or Clinical Trial — securely share your details & reports with partner NGOs / research institutes.</div>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="switch" role="tablist" aria-label="Application type">
+        <button class="tab-btn active" id="tab-fin" role="tab" aria-selected="true">Financial Help (NGO)</button>
+        <button class="tab-btn" id="tab-trial" role="tab" aria-selected="false">Clinical Trial Application</button>
+      </div>
+
+      <!-- Financial Help Form -->
+      <form id="form-fin" enctype="multipart/form-data" novalidate>
+        <div class="grid">
+          <div>
+            <label for="fin-name">Full name *</label>
+            <input id="fin-name" name="name" type="text" placeholder="e.g. Ravi Kumar" required>
+          </div>
+          <div>
+            <label for="fin-email">Email *</label>
+            <input id="fin-email" name="email" type="email" placeholder="name@example.com" required>
+          </div>
+
+          <div>
+            <label for="fin-phone">Mobile *</label>
+            <input id="fin-phone" name="phone" type="tel" placeholder="+91 9xxxxxxxxx" required>
+          </div>
+          <div>
+            <label for="fin-age">Age</label>
+            <input id="fin-age" name="age" type="number" min="0" max="120" placeholder="e.g. 45">
+          </div>
+
+          <div class="full">
+            <label for="fin-disease">Disease / Diagnosis *</label>
+            <input id="fin-disease" name="disease" type="text" placeholder="e.g. Stage 3 Liver Cirrhosis" required>
+          </div>
+
+          <div class="full">
+            <label for="fin-summary">Short summary of financial need *</label>
+            <textarea id="fin-summary" name="summary" placeholder="Explain financial need: treatment cost estimate, family situation, urgent dates..." required></textarea>
+            <div class="small">Max 500 characters recommended.</div>
+          </div>
+
+          <div>
+            <label for="fin-ngo">Select NGO preference (optional)</label>
+            <select id="fin-ngo" name="ngo">
+              <option value="">Any partner NGO</option>
+              <option value="hope-foundation">Hope Foundation</option>
+              <option value="care-trust">Care Trust</option>
+              <option value="life-aid">Life Aid</option>
+            </select>
+          </div>
+          <div>
+            <label for="fin-amount">Estimated cost (INR)</label>
+            <input id="fin-amount" name="amount" type="number" placeholder="e.g. 150000">
+          </div>
+
+          <div class="full">
+            <label>Attach medical reports / bills (pdf, jpg, png) — up to 3 files, each ≤ 8MB *</label>
+            <div class="row">
+              <input id="fin-files" name="files" type="file" accept=".pdf,image/*" multiple class="file-input" aria-describedby="fin-files-hint">
+            </div>
+            <div id="fin-files-hint" class="small">Allowed: .pdf, .jpg, .png. Total max 24MB (3×8MB)</div>
+            <div id="fin-preview" class="preview-list" aria-live="polite"></div>
+            <div id="fin-error" class="error" role="alert"></div>
+          </div>
+
+          <div class="full">
+            <label>Consent</label>
+            <div>
+              <input id="fin-consent" name="consent" type="checkbox" required>
+              <label for="fin-consent" class="small">I consent to share my details and medical reports with Curevia partner NGOs for evaluation. I understand this is not guaranteed funding.</label>
+            </div>
+          </div>
+
+          <div class="full">
+            <button class="btn" id="fin-submit" type="submit">Submit Financial Help Application</button>
+            <button class="btn secondary" id="fin-reset" type="button">Reset</button>
+            <div id="fin-msg" class="note"></div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Clinical Trial Form -->
+      <form id="form-trial" enctype="multipart/form-data" novalidate style="display:none;margin-top:8px">
+        <div class="grid">
+          <div>
+            <label for="trial-name">Full name *</label>
+            <input id="trial-name" name="name" type="text" placeholder="e.g. Sunita Sharma" required>
+          </div>
+          <div>
+            <label for="trial-email">Email *</label>
+            <input id="trial-email" name="email" type="email" placeholder="name@example.com" required>
+          </div>
+
+          <div>
+            <label for="trial-phone">Mobile *</label>
+            <input id="trial-phone" name="phone" type="tel" placeholder="+91 9xxxxxxxxx" required>
+          </div>
+          <div>
+            <label for="trial-age">Age *</label>
+            <input id="trial-age" name="age" type="number" min="0" max="120" placeholder="e.g. 52" required>
+          </div>
+
+          <div class="full">
+            <label for="trial-disease">Disease / Condition *</label>
+            <input id="trial-disease" name="disease" type="text" placeholder="e.g. COPD" required>
+          </div>
+
+          <div>
+            <label for="trial-stage">Disease stage / severity</label>
+            <select id="trial-stage" name="stage">
+              <option value="">Select</option>
+              <option>Early / Mild</option>
+              <option>Moderate</option>
+              <option>Advanced / Severe</option>
+            </select>
+          </div>
+          <div>
+            <label for="trial-onmeds">On medications?</label>
+            <select id="trial-onmeds" name="on_medications">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+
+          <div class="full">
+            <label for="trial-summary">Medical history / current treatments *</label>
+            <textarea id="trial-summary" name="summary" placeholder="Brief history, prior surgeries, allergies, current meds..." required></textarea>
+          </div>
+
+          <div class="full">
+            <label>Attach clinical reports (PDF preferred) — up to 5 files, each ≤ 8MB *</label>
+            <input id="trial-files" name="files" type="file" accept=".pdf,image/*" multiple class="file-input">
+            <div id="trial-preview" class="preview-list" aria-live="polite"></div>
+            <div id="trial-error" class="error" role="alert"></div>
+          </div>
+
+          <div class="full">
+            <label>Consent (required)</label>
+            <div>
+              <input id="trial-consent" name="consent" type="checkbox" required>
+              <label for="trial-consent" class="small">I consent to share my medical details and reports with Curevia partner research institutes for clinical trial screening. I understand I may be contacted for screening and eligibility checks. I consent to anonymized data sharing where applicable.</label>
+            </div>
+          </div>
+
+          <div class="full">
+            <button class="btn" id="trial-submit" type="submit">Submit Clinical Trial Application</button>
+            <button class="btn secondary" id="trial-reset" type="button">Reset</button>
+            <div id="trial-msg" class="note"></div>
+          </div>
+        </div>
+      </form>
+
+      <div class="footer">
+        <p><strong>Contact</strong>: <a href="mailto:youremail@example.com">youremail@example.com</a> | <a href="tel:+911234567890">+91 12345 67890</a></p>
+        <p class="small">We take privacy seriously. Sensitive personal or health data will only be shared with your explicit consent and partner organizations for the purpose you selected.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // UI toggles
+    const tabFin = document.getElementById('tab-fin');
+    const tabTrial = document.getElementById('tab-trial');
+    const formFin = document.getElementById('form-fin');
+    const formTrial = document.getElementById('form-trial');
+
+    tabFin.addEventListener('click', () => {
+      tabFin.classList.add('active'); tabFin.setAttribute('aria-selected','true');
+      tabTrial.classList.remove('active'); tabTrial.setAttribute('aria-selected','false');
+      formFin.style.display = ''; formTrial.style.display = 'none';
+    });
+    tabTrial.addEventListener('click', () => {
+      tabTrial.classList.add('active'); tabTrial.setAttribute('aria-selected','true');
+      tabFin.classList.remove('active'); tabFin.setAttribute('aria-selected','false');
+      formTrial.style.display = ''; formFin.style.display = 'none';
+    });
+
+    // File validation helpers
+    const MAX_FILE_MB = 8;
+    const FIN_MAX_FILES = 3;
+    const TRIAL_MAX_FILES = 5;
+    const ALLOWED_TYPES = ['application/pdf','image/png','image/jpeg','image/jpg'];
+
+    function handlePreview(inputEl, previewEl, errorEl, maxFiles) {
+      const files = Array.from(inputEl.files || []);
+      previewEl.innerHTML = '';
+      errorEl.textContent = '';
+
+      if (!files.length) { previewEl.textContent = '(no files selected)'; return; }
+
+      if (files.length > maxFiles) {
+        errorEl.textContent = `Please select at most ${maxFiles} files.`;
+        return;
+      }
+
+      let totalSize = 0;
+      for (const f of files) {
+        totalSize += f.size;
+        if (!ALLOWED_TYPES.includes(f.type) && !f.name.toLowerCase().endsWith('.pdf')) {
+          errorEl.textContent = 'Only PDF and image files (png/jpg/jpeg) are allowed.';
+          return;
+        }
+        if (f.size > MAX_FILE_MB * 1024 * 1024) {
+          errorEl.textContent = `Each file must be ≤ ${MAX_FILE_MB} MB. "${f.name}" is too large.`;
+          return;
+        }
+        const item = document.createElement('div');
+        item.className = 'preview-item';
+        item.textContent = `${f.name} (${Math.round(f.size/1024)} KB)`;
+        const rem = document.createElement('span');
+        rem.innerHTML = '';
+        item.appendChild(rem);
+        previewEl.appendChild(item);
+      }
+      // all good
+    }
+
+    // attach change handlers
+    document.getElementById('fin-files').addEventListener('change', (e) => {
+      handlePreview(e.target, document.getElementById('fin-preview'), document.getElementById('fin-error'), FIN_MAX_FILES);
+    });
+    document.getElementById('trial-files').addEventListener('change', (e) => {
+      handlePreview(e.target, document.getElementById('trial-preview'), document.getElementById('trial-error'), TRIAL_MAX_FILES);
+    });
+
+    // simple toast
+    function showToast(msg, ok=true) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.style.background = ok ? '#072b19' : '#63121a';
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'), 4500);
+    }
+
+    // submit handlers (uses fetch to endpoints)
+    async function submitForm(evt, endpoint, formEl, previewEl, msgEl) {
+      evt.preventDefault();
+      msgEl.textContent = '';
+      const formData = new FormData(formEl);
+
+      // client-side basic validation for files is already done, but re-check
+      const inputFiles = formEl.querySelector('input[type="file"]');
+      if (inputFiles && inputFiles.files.length === 0) {
+        // for these forms files are required
+        if (formEl.id === 'form-fin' || formEl.id === 'form-trial') {
+          // both require at least 1 file
+          msgEl.textContent = 'Please attach required medical file(s) before submitting.';
+          return;
+        }
+      }
+
+      // show loading UI
+      const submitBtn = formEl.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+
+      try {
+        // NOTE: Replace endpoint URL with your real backend route.
+        const resp = await fetch(endpoint, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!resp.ok) {
+          const text = await resp.text();
+          throw new Error(text || `Server responded ${resp.status}`);
+        }
+        const data = await resp.json().catch(()=>({ok:true}));
+        showToast('Application submitted successfully ✅', true);
+        msgEl.textContent = 'Application submitted — our team will contact you if you are shortlisted.';
+        formEl.reset();
+        previewEl.innerHTML = '';
+      } catch (err) {
+        console.error(err);
+        showToast('Failed to submit. Please try again.', false);
+        msgEl.textContent = 'Submission failed: ' + (err.message || 'Unknown error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    }
+
+    // bind forms
+    document.getElementById('form-fin').addEventListener('submit', (e) =>
+      submitForm(e, '/api/apply-financial', document.getElementById('form-fin'),
+                 document.getElementById('fin-preview'), document.getElementById('fin-msg')));
+
+    document.getElementById('form-trial').addEventListener('submit', (e) =>
+      submitForm(e, '/api/apply-trial', document.getElementById('form-trial'),
+                 document.getElementById('trial-preview'), document.getElementById('trial-msg')));
+
+    // reset handlers
+    document.getElementById('fin-reset').addEventListener('click', () => {
+      document.getElementById('form-fin').reset();
+      document.getElementById('fin-preview').innerHTML = ''; document.getElementById('fin-msg').textContent='';
+    });
+    document.getElementById('trial-reset').addEventListener('click', () => {
+      document.getElementById('form-trial').reset();
+      document.getElementById('trial-preview').innerHTML = ''; document.getElementById('trial-msg').textContent='';
+    });
+
+    // Accessibility: focus first input on tab switch
+    tabFin.addEventListener('click', ()=>document.getElementById('fin-name').focus());
+    tabTrial.addEventListener('click', ()=>document.getElementById('trial-name').focus());
+  </script>
+</body>
+</html>

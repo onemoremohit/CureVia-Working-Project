@@ -1,0 +1,40 @@
+/* basic reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:Arial,Helvetica,sans-serif;background:#f7f7f7;color:#222}
+header{
+  background:#0EA5E9;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:fixed;left:0;right:0;top:0;z-index:20;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06)
+}
+.brand{display:flex;align-items:center;gap:12px}
+#logoimg{height:44px;object-fit:cover;border-radius:6px}
+.brand-name{font-weight:800;font-size:18px}
+.main-nav a{color:#fff;text-decoration:none;margin-left:12px;font-weight:700}
+.site-wrap{max-width:980px;margin:0 auto;padding:110px 18px 40px}
+.info-section{background:#eaf9ff;padding:22px;border-radius:10px;margin-bottom:16px;text-align:center}
+.info-section h1{color:#087ea8;margin-bottom:6px}
+.container{background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+.assistant-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.assistant-header h2{color:#087ea8;margin:0}
+.bot-img{width:60px;border-radius:8px}
+form label{display:block;margin-top:10px;font-weight:600;color:#333}
+input[type="text"], input[type="number"], textarea, select {
+  width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #d3d9de;font-size:15px;background:#fff
+}
+input[type="file"]{margin-top:6px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.col{flex:1;min-width:160px}
+.radio-group{margin-top:6px;display:flex;gap:12px;align-items:center}
+.form-actions{display:flex;gap:8px;align-items:center;margin-top:12px}
+button, input[type="submit"]{background:#0EA5E9;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+button.demo{background:#2f9f6e}
+.meta{font-size:13px;color:#666;margin-left:8px}
+.note{font-size:13px;color:#555;margin-top:10px}
+.error{color:#b00020;font-weight:700;margin-top:10px}
+.result-card{margin-top:18px;padding:14px;background:#f3fbff;border-radius:8px}
+.result-top{display:flex;align-items:center;justify-content:space-between}
+.comparison-table{width:100%;border-collapse:collapse;margin-top:10px}
+.comparison-table th, .comparison-table td{padding:8px;border-bottom:1px solid #e6eef5;text-align:left}
+.comparison-table th{background:#e9f7ff}
+.chart-wrap{margin-top:12px}
+.urgency{font-weight:800;color:#b21a1a}
+@media(max-width:600px){.row{flex-direction:column}.bot-img{display:none}}
